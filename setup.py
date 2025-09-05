@@ -13,6 +13,7 @@ def get_requirements(file_path:str)->List[str]:
 
         if HYPEN_E_DOT in requirements:
             requirements.remove('-e .')
+    return requirements
 
 setup(
     name='mlproject',

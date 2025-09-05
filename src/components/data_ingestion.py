@@ -1,6 +1,5 @@
 import os
 import sys
-from src.components.model_trainer import ModelTrainer
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
@@ -11,7 +10,8 @@ from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 
-
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig:

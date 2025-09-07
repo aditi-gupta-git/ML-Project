@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="A web app to predict student exam performance." />
+  <meta name="author" content="Aditi Gupta" />
+  <title>{% block title %}Student Exam Performance Predictor{% endblock %}</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      font-family: 'Urbanist', sans-serif;
+    }
+    .predictor-heading {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900; /* Black weight */
+      text-transform: uppercase;
+    }
+  </style>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  {% block head_extra %}{% endblock %}
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white/80 backdrop-blur border-b">
+    <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-center">
+      <a href="{{ url_for('index') }}" class="predictor-heading text-xl tracking-wide">
+        Student Exam Performance Predictor
+      </a>
+    </div>
+  </nav>
+
+  <!-- Page content -->
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex justify-center gap-6">
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/guptaaditi8" target="_blank" rel="noopener noreferrer"
+         class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition"
+         aria-label="LinkedIn">
+        <i class="fab fa-linkedin-in text-lg"></i>
+      </a>
+      <!-- GitHub -->
+      <a href="https://github.com/aditi-gupta-git" target="_blank" rel="noopener noreferrer"
+         class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-black transition"
+         aria-label="GitHub">
+        <i class="fab fa-github text-lg"></i>
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>

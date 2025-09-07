@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Predict · Student Exam Performance Predictor{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Prediction Form</h1>
+
+<div class="grid lg:grid-cols-3 gap-8">
+  <!-- Left: Form -->
+  <div class="lg:col-span-2 bg-white border rounded-2xl p-8 shadow-sm">
+    <form action="{{ url_for('predict_datapoint') }}" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Gender -->
+      <div>
+        <label class="block font-semibold mb-2">Gender</label>
+        <select name="gender" class="w-full p-3 border rounded-lg" required>
+          <option disabled {{ 'selected' if not request.form.get('gender') }} value="">Select Gender</option>
+          <option value="male"   {{ 'selected' if request.form.get('gender')=='male' }}>Male</option>
+          <option value="female" {{ 'selected' if request.form.get('gender')=='female' }}>Female</option>
+        </select>
+      </div>
+
+      <!-- Ethnicity -->
+      <div>
+        <label class="block font-semibold mb-2"> Race/Ethnicity</label>
+        <select name="ethnicity" class="w-full p-3 border rounded-lg" required>
+          {% set eth = request.form.get('ethnicity') %}
+          <option disabled {{ 'selected' if not eth }} value="">Select Ethnicity</option>
+          {% for g in ['group A','group B','group C','group D','group E'] %}
+            <option value="{{ g }}" {{ 'selected' if eth==g }}>{{ g|title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Parental Education -->
+      <div class="md:col-span-2">
+        <label class="block font-semibold mb-2"> Parental Level of Education</label>
+        {% set ped = request.form.get('parental_level_of_education') %}
+        <select name="parental_level_of_education" class="w-full p-3 border rounded-lg" required>
+          <option disabled {{ 'selected' if not ped }} value="">Select Parent Education</option>
+          {% for opt in [
+            "associate's degree","bachelor's degree","high school",
+            "master's degree","some college","some high school"
+          ] %}
+            <option value="{{ opt }}" {{ 'selected' if ped==opt }}>{{ opt }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Lunch -->
+      <div>
+        <label class="block font-semibold mb-2"> Lunch Type</label>
+        {% set lunch_val = request.form.get('lunch') %}
+        <select name="lunch" class="w-full p-3 border rounded-lg" required>
+          <option disabled {{ 'selected' if not lunch_val }} value="">Select Lunch Type</option>
+          <option value="free/reduced" {{ 'selected' if lunch_val=='free/reduced' }}>Free/Reduced</option>
+          <option value="standard"     {{ 'selected' if lunch_val=='standard' }}>Standard</option>
+        </select>
+      </div>
+
+      <!-- Test Prep -->
+      <div>
+        <label class="block font-semibold mb-2"> Test Preparation Course</label>
+        {% set prep = request.form.get('test_preparation_course') %}
+        <select name="test_preparation_course" class="w-full p-3 border rounded-lg" required>
+          <option disabled {{ 'selected' if not prep }} value="">Select</option>
+          <option value="none"      {{ 'selected' if prep=='none' }}>None</option>
+          <option value="completed" {{ 'selected' if prep=='completed' }}>Completed</option>
+        </select>
+      </div>
+
+      <!-- Writing Score -->
+      <div>
+        <label class="block font-semibold mb-2"> Writing Score (0–100)</label>
+        <input type="number" name="writing_score" min="0" max="100"
+               value="{{ request.form.get('writing_score','') }}"
+               placeholder="Enter Writing Score" class="w-full p-3 border rounded-lg" required>
+      </div>
+
+      <!-- Reading Score -->
+      <div>
+        <label class="block font-semibold mb-2"> Reading Score (0–100)</label>
+        <input type="number" name="reading_score" min="0" max="100"
+               value="{{ request.form.get('reading_score','') }}"
+               placeholder="Enter Reading Score" class="w-full p-3 border rounded-lg" required>
+      </div>
+
+      <div class="md:col-span-2">
+        <button type="submit"
+          class="w-full py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
+          🔮 Predict Maths Score
+        </button>
+      </div>
+    </form>
+
+    {% if results is not none %}
+      <div id="result" class="mt-6 p-5 bg-green-100 text-green-800 text-center rounded-xl font-semibold text-lg">
+        Predicted Maths Score: <span class="text-green-900">{{ results }}</span>
+      </div>
+      <script>
+        // Scroll to the result after submission
+        const el = document.getElementById('result');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      </script>
+    {% endif %}
+  </div>
+
+  <!-- Right: Tips panel -->
+  <aside class="bg-white border rounded-2xl p-6 shadow-sm h-max">
+    <h2 class="font-bold text-lg">Tips</h2>
+    <ul class="mt-3 space-y-2 text-sm text-gray-600">
+      <li>• Scores must be between 0 and 100.</li>
+      <li>• Try changing Lunch/Test-Prep to see impact.</li>
+      <li>• Use realistic values for best results.</li>
+    </ul>
+    <hr class="my-5">
+    <h3 class="font-semibold">About the model</h3>
+    <p class="text-sm text-gray-600 mt-1">
+      Inputs are standardized and passed through a trained ML pipeline to estimate a maths score.
+    </p>
+  </aside>
+</div>
+{% endblock %}

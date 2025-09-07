@@ -1,9 +1,11 @@
+flask
+dill
+scikit-learn
 pandas
 numpy
-seaborn
 matplotlib
-scikit-learn
-catboost
+seaborn
 xgboost
-dill
+catboost
+plotly
 -e .

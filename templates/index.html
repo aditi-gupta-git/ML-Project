@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Home · Student Exam Performance Predictor{% endblock %}
+
+{% block content %}
+<section class="grid md:grid-cols-2 gap-10 items-center">
+  <!-- Left: Hero -->
+  <div>
+    <h1 class="text-4xl font-extrabold leading-tight">
+      Predict student <span class="text-indigo-600">Maths scores</span> in seconds
+    </h1>
+    <p class="mt-4 text-gray-600 text-lg">
+      Provide a few details and prior scores — our model will estimate the maths score instantly.
+    </p>
+    <div class="mt-8 flex gap-4">
+      <a href="{{ url_for('predict_datapoint') }}"
+         class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 text-base">
+        Get a prediction
+      </a>
+      <a href="#how-it-works"
+         class="inline-flex items-center justify-center px-6 py-3 rounded-lg border font-semibold hover:bg-gray-50 text-base">
+        Learn more
+      </a>
+    </div>
+  </div>
+
+  <!-- Right: Stats Card -->
+  <div class="flex justify-center mt-6 md:mt-0">
+    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 border rounded-2xl p-10 w-full max-w-2xl shadow-sm">
+      <div class="grid grid-cols-3 text-center gap-8">
+        <div>
+          <div class="text-3xl font-semibold">100</div>
+          <div class="text-sm text-gray-600 mt-1">Max score</div>
+        </div>
+        <div>
+          <div class="text-3xl font-semibold">7</div>
+          <div class="text-sm text-gray-600 mt-1">Inputs</div>
+        </div>
+        <div>
+          <div class="text-3xl font-semibold">1</div>
+          <div class="text-sm text-gray-600 mt-1">Prediction</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how-it-works" class="mt-20">
+  <h2 class="text-3xl font-bold">How it works</h2>
+  <div class="mt-8 grid md:grid-cols-3 gap-8">
+    <div class="bg-white p-8 rounded-2xl shadow-sm border hover:shadow-md transition">
+      <div class="text-4xl">📝</div>
+      <h3 class="mt-4 font-semibold text-lg">Enter details</h3>
+      <p class="text-gray-600 text-sm mt-2">
+        Gender, group, parental education, lunch, test prep, writing & reading scores.
+      </p>
+    </div>
+    <div class="bg-white p-8 rounded-2xl shadow-sm border hover:shadow-md transition">
+      <div class="text-4xl">🧠</div>
+      <h3 class="mt-4 font-semibold text-lg">Model inference</h3>
+      <p class="text-gray-600 text-sm mt-2">
+        Your inputs are fed into a trained pipeline to estimate maths performance.
+      </p>
+    </div>
+    <div class="bg-white p-8 rounded-2xl shadow-sm border hover:shadow-md transition">
+      <div class="text-4xl">📊</div>
+      <h3 class="mt-4 font-semibold text-lg">Get result</h3>
+      <p class="text-gray-600 text-sm mt-2">
+        See the predicted score and try “what-if” scenarios instantly.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

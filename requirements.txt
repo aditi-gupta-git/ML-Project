@@ -7,5 +7,6 @@ matplotlib
 seaborn
 xgboost
 catboost
+gunicorn
 plotly
 -e .
